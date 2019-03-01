@@ -17,7 +17,14 @@
     <color name="primary">#B971F1AF</color>
     <color name="primary_dark">#A5E6B3</color>
     <color name="primary_darker">#CC1D1D</color>
-    <color name="accent">#FFFFFF</color>
+    <color name="accent">#29E7BB</color>
+
+    <color name="default_line_color">#e6e6e6</color>
+    <color name="list_item_focus">#0a000000</color>
+    <color name="white_alpha_percent_45">#73ffffff</color>
+    <color name="title_color">#259b24</color>
+
+    <color name="login_unable_bg">#ffcdced0</color>
 </resources>
 
 
