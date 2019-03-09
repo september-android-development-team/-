@@ -13,6 +13,7 @@ import com.test.september.View.Fragment.BaseFragment;
 import com.test.september.View.Fragment.CommunityFragment;
 import com.test.september.View.Fragment.HomeFragment;
 import com.test.september.View.Fragment.RewardFragment;
+import com.test.september.View.Fragment.UserCartFragment;
 
 import java.util.ArrayList;
 
@@ -62,6 +63,7 @@ public class Home extends FragmentActivity {
         initFragment();
         //设置RadioGroup的监听
         initListener();
+
     }
 
     private void initListener() {
@@ -105,11 +107,15 @@ public class Home extends FragmentActivity {
      */
     private void initFragment() {
         fragments = new ArrayList<>();
-        fragments.add(new HomeFragment());
-        fragments.add(new RewardFragment());
-        fragments.add(new CommunityFragment());
+        fragments.add(new HomeFragment());   //添加主页界面
+        fragments.add(new RewardFragment()); //添加悬赏界面
+        fragments.add(new CommunityFragment()); //添加消息界面
+        fragments.add(new UserCartFragment());  //添加用户界面
+        /**初始化Fragment*/
+        BaseFragment baseFragment = getFragment(position);
+        switchFragment(tempFragment, baseFragment);
 //        fragments.add(new ShoppingCartFragment());
-//        fragments.add(new UserCartFragment());
+
     }
 
     /**

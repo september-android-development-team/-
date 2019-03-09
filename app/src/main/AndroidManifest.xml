@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.test.september">
+    <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,11 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Dark"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".View.SearchToolBar"></activity>
+        <activity android:name=".View.Activity.Setting"></activity>
+        <activity android:name=".View.SearchToolBar" />
         <activity android:name=".View.Home" />
         <activity android:name=".View.SignUp" />
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".View.Activity.GuideActivity"/>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".View.Activity.GuideActivity" />
         <activity android:name=".View.Login" />
         <activity android:name=".date.date" />
         <activity android:name=".View.Activity.SplashActivity">
@@ -24,7 +28,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- 注意包名 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.test.september"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

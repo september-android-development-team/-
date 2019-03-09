@@ -94,6 +94,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         recyclerview = view.findViewById(R.id.recyclerview);
         tvSearchHome=view.findViewById(R.id.tv_search_home);
         tvMessageHome=view.findViewById(R.id.tv_message_home);
+        initDatas();
         initRefresh();
         return view;
     }

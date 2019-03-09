@@ -24,14 +24,14 @@ public class CommunityFragment extends BaseFragment {
         textView = new TextView(mContext);
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(25);
-        Log.e(TAG,"悬赏页面的Fragment的UI被初始化了");
+        Log.e(TAG,"消息页面的Fragment的UI被初始化了");
         return textView;
     }
 
     @Override
     public void initData() {
         super.initData();
-        textView.setText("首页");
-        Log.e(TAG,"悬赏页面的Fragment的数据被初始化了");
+        textView.setText("消息");
+        Log.e(TAG,"消息页面的Fragment的数据被初始化了");
     }
 }
