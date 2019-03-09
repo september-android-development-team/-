@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="#F5F5F5"
     android:orientation="vertical"
 
     tools:context=".View.Home">
@@ -11,9 +11,10 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
+        android:layout_height="1dp"
+        android:background="#C8BDBBBB"
+        android:layout_weight="1"
+        />
 
     <RadioGroup
         android:id="@+id/rg_main"
@@ -21,8 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:gravity="bottom"
-        android:background="#ffffff"
+        android:background="#F0ECEC"
         android:orientation="horizontal">
+
 
         <RadioButton
             android:id="@+id/rb_home"

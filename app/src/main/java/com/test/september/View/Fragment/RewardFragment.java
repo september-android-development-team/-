@@ -27,7 +27,7 @@ public class RewardFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        textView.setText("首页");
+        textView.setText("悬赏");
         Log.e(TAG,"悬赏页面的Fragment的数据被初始化了");
     }
 }
