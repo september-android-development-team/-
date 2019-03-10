@@ -17,6 +17,11 @@ android {
         }
     }
     buildToolsVersion '28.0.3'
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+        }
+    }
 }
 
 dependencies {
@@ -42,8 +47,10 @@ dependencies {
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
     //    注解插件
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
     //    网络互通
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.okhttp:okhttp:2.7.2'
+    //百度地图
+    implementation files('libs/BaiduLBS_Android.jar')
+    implementation files('libs/IndoorscapeAlbumPlugin.jar')
 }
