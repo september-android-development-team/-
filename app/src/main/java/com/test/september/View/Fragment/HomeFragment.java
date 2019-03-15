@@ -1,9 +1,16 @@
 package com.test.september.View.Fragment;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +35,8 @@ import com.test.september.View.MyView.ChooseView.MyViewPagerAdapter;
 import com.test.september.View.MyView.PullRefreshLayout.PullRefreshLayout;
 import com.test.september.View.SearchToolBar;
 import com.test.september.util.DividerItemDecoration;
+import com.yzq.zxinglibrary.android.CaptureActivity;
+import com.yzq.zxinglibrary.common.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +52,7 @@ import butterknife.Unbinder;
  * 首页Fragment
  */
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
-
-
+    private int REQUEST_CODE_SCAN = 111;
     private ViewPager mViewPagerGrid;
     private List<View> mViewPagerGridList;
     private List<HeaderViewBean> mDatas;
@@ -58,7 +66,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     TextView tvSearchHome;
     TextView tvMessageHome;
-
 
     /**
      * 刚初始化的数据
@@ -75,16 +82,30 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
      */
     private List<String> mList = new ArrayList<>();
     private HomeAdapter mAdapter;
-
-
+    private TextView tv_scan;
 //    private SearchView searchView;
 
     @Override
     public View initView() {
         Log.e(TAG, "主页面的Fragment的UI被初始化了");
         View view = View.inflate(mContext, R.layout.fragment_home, null);
-
         mViewPagerGrid=view.findViewById(R.id.vp);
+        tv_scan=view.findViewById(R.id.tv_scan);
+        tv_scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(mContext,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    // 权限还没有授予，进行申请
+                    ActivityCompat.requestPermissions((Activity) mContext,
+                            new String[]{Manifest.permission.CAMERA}, 200); // 申请的 requestCode 为 200
+                } else {
+                    Intent intent = new Intent(mContext, CaptureActivity.class);
+                    startActivityForResult(intent,REQUEST_CODE_SCAN);
+                }
+            }
+        });
 //        searchView = (SearchView) view.findViewById(R.id.search_view);
 //        searchView.setOnClickSearch(new ICallBack() {
 //            @Override
@@ -102,7 +123,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //
 //        });
 
-
 //        input = (EditText) view.findViewById(R.id.et_input);
 //        btn_search = (Button) view.findViewById(R.id.btn_search);
 
@@ -110,8 +130,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //        refreshLayout = view.findViewById(R.id.refresh_view);
 //        recyclerview = view.findViewById(R.id.recyclerview);
         recyclerView=view.findViewById(R.id.recyclerView);
-
-
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
@@ -180,13 +198,30 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
 
-
-
         tvSearchHome=view.findViewById(R.id.tv_search_home);
         tvMessageHome=view.findViewById(R.id.tv_message_home);
 //        initDatas();
 //        initRefresh();
         return view;
+    }
+
+    /**
+     * 处理权限回调结果
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 200:
+            {
+
+            }
+                break;
+            case 300:
+            {
+
+            }
+                break;
+        }
     }
 
 
@@ -215,9 +250,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
-
         public TextView mTextView;
-
         public ViewHolder(View itemView) {
             super(itemView);
             mTextView = (TextView) itemView;
@@ -370,6 +403,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //            });
 //            mFlowLayout.addView(tv);
 //        }
+
         Log.e(TAG, "主页面的Fragment的数据被初始化了");
     }
 
@@ -378,5 +412,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 扫描二维码/条码回传
+        if (requestCode == REQUEST_CODE_SCAN && resultCode == getActivity().RESULT_OK) {
+            if (data != null) {
+                String content = data.getStringExtra(Constant.CODED_CONTENT);
+                Log.d("result",content);
+            }
+        }
+    }
 }

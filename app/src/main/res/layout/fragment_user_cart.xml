@@ -12,115 +12,134 @@
        android:orientation="vertical"
        >
 
-       <LinearLayout
-           android:id="@+id/titlebar"
+       <!--<LinearLayout-->
+           <!--android:id="@+id/titlebar"-->
+           <!--android:layout_width="match_parent"-->
+           <!--android:layout_height="wrap_content"-->
+           <!--android:background="#63CC7A"-->
+           <!--android:orientation="horizontal"-->
+           <!--&gt;-->
+           <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+               <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+               <!--&lt;!&ndash;android:layout_height="62dp"&ndash;&gt;-->
+
+               <!--&lt;!&ndash;/>&ndash;&gt;-->
+           <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+               <!--&lt;!&ndash;android:id="@+id/tv_search_home"&ndash;&gt;-->
+               <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+               <!--&lt;!&ndash;android:layout_height="35dp"&ndash;&gt;-->
+               <!--&lt;!&ndash;android:layout_gravity="center_vertical"&ndash;&gt;-->
+               <!--&lt;!&ndash;android:layout_marginLeft="10dp"&ndash;&gt;-->
+               <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+               <!--&lt;!&ndash;android:background="@drawable/search_home_shape"&ndash;&gt;-->
+               <!--&lt;!&ndash;android:drawableLeft="@drawable/ic_search"&ndash;&gt;-->
+               <!--&lt;!&ndash;android:drawablePadding="10dp"&ndash;&gt;-->
+               <!--&lt;!&ndash;android:gravity="center_vertical"&ndash;&gt;-->
+               <!--&lt;!&ndash;android:padding="5dp"&ndash;&gt;-->
+               <!--&lt;!&ndash;android:text="输入搜索信息"&ndash;&gt;-->
+               <!--&lt;!&ndash;android:textSize="13sp" />&ndash;&gt;-->
+
+
+       <!--</LinearLayout>-->
+
+
+       <TextView
            android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:background="#63CC7A"
-           android:orientation="horizontal"
-           >
-           <!--<TextView-->
-               <!--android:layout_width="match_parent"-->
-               <!--android:layout_height="62dp"-->
-
-               <!--/>-->
-           <!--<TextView-->
-               <!--android:id="@+id/tv_search_home"-->
-               <!--android:layout_width="wrap_content"-->
-               <!--android:layout_height="35dp"-->
-               <!--android:layout_gravity="center_vertical"-->
-               <!--android:layout_marginLeft="10dp"-->
-               <!--android:layout_weight="1"-->
-               <!--android:background="@drawable/search_home_shape"-->
-               <!--android:drawableLeft="@drawable/ic_search"-->
-               <!--android:drawablePadding="10dp"-->
-               <!--android:gravity="center_vertical"-->
-               <!--android:padding="5dp"-->
-               <!--android:text="输入搜索信息"-->
-               <!--android:textSize="13sp" />-->
+           android:layout_height="50dp"
+           android:background="@android:color/holo_blue_light"
+           android:gravity="center"
+           android:text="我"
+           android:textColor="@android:color/white"
+           android:textSize="20sp"/>
 
 
-       </LinearLayout>
 
-       <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
 
-           <ImageView
-               android:id="@+id/h_back"
-               android:layout_width="match_parent"
-               android:layout_height="160dp" />
 
-           <ImageView
-               android:id="@+id/h_head"
-               android:layout_width="80dp"
-               android:layout_height="80dp"
-               android:layout_centerInParent="true" />
 
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_alignBottom="@id/h_back"
-               android:orientation="horizontal"
-               android:layout_marginBottom="20dp">
-
-               <ImageView
-                   android:id="@+id/user_line"
-                   android:layout_width="1dp"
-                   android:layout_height="25dp"
-                   android:layout_marginLeft="15dp"
-                   android:layout_centerHorizontal="true"
-                   android:background="@color/white"/>
-
-               <TextView
-                   android:id="@+id/user_name"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_toLeftOf="@id/user_line"
-                   android:textSize="17sp"
-                   android:textColor="@color/white"
-                   android:text="张三"/>
-
-               <TextView
-                   android:id="@+id/user_val"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_marginLeft="15dp"
-                   android:textSize="17sp"
-                   android:textColor="@color/white"
-                   android:layout_toRightOf="@id/user_line"
-                   android:text="182****5882"/>
-           </RelativeLayout>
-
-       </RelativeLayout>
 
 
        <com.test.september.View.MyView.FlowScrollView
            android:layout_width="match_parent"
            android:layout_height="match_parent"
+           android:background="@android:color/holo_blue_light"
            >
-
-
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:orientation="vertical"
-               android:layout_height="match_parent">
-
                <LinearLayout
                    android:layout_width="match_parent"
                    android:background="#fff"
                    android:orientation="vertical"
                    android:layout_height="match_parent">
+                   <RelativeLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+
+                       <ImageView
+                           android:id="@+id/h_back"
+                           android:layout_width="match_parent"
+                           android:layout_height="160dp" />
+
+                       <ImageView
+                           android:id="@+id/h_head"
+                           android:layout_width="80dp"
+                           android:layout_height="80dp"
+                           android:layout_centerInParent="true" />
+
+                       <RelativeLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_alignBottom="@id/h_back"
+                           android:orientation="horizontal"
+                           android:layout_marginBottom="20dp">
+
+                           <ImageView
+                               android:id="@+id/user_line"
+                               android:layout_width="1dp"
+                               android:layout_height="25dp"
+                               android:layout_marginLeft="15dp"
+                               android:layout_centerHorizontal="true"
+                               android:background="@color/white"/>
+
+                           <TextView
+                               android:id="@+id/user_name"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_toLeftOf="@id/user_line"
+                               android:textSize="17sp"
+                               android:textColor="@color/white"
+                               android:text="张三"/>
+
+                           <TextView
+                               android:id="@+id/user_val"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_marginLeft="15dp"
+                               android:textSize="17sp"
+                               android:textColor="@color/white"
+                               android:layout_toRightOf="@id/user_line"
+                               android:text="182****5882"/>
+                       </RelativeLayout>
+
+                   </RelativeLayout>
+
                    <!--<ImageView-->
                        <!--android:layout_weight="4"-->
                        <!--android:layout_width="match_parent"-->
                        <!--android:layout_height="wrap_content" />-->
+                   <!--<Button-->
+                       <!--android:layout_width="match_parent"-->
+                       <!--android:layout_height="match_parent"-->
+                       <!--android:layout_margin="3dp"-->
+                       <!--android:background="@drawable/check_border"-->
+                       <!--android:text="带边框颜色的Button"-->
+                       <!--/>-->
+
+
                    <Button
                        android:id="@+id/to_setting"
                        android:layout_marginTop="10dp"
                        android:layout_width="match_parent"
                        android:layout_height="match_parent"
-                       android:background="#fff"
+                       android:background="@drawable/check_border"
                        android:textSize="20sp"
                        android:text="设置中心"
                        android:textColor="#000"
@@ -136,6 +155,15 @@
                        />
                    <Button
                        android:layout_marginTop="10dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="#fff"
+                       android:textSize="20sp"
+                       android:text="待定"
+                       android:textColor="#000"
+                       />
+                   <Button
+
                        android:layout_width="match_parent"
                        android:layout_height="match_parent"
                        android:background="#fff"
@@ -178,7 +206,6 @@
                </LinearLayout>
 
 
-           </RelativeLayout>
 
        </com.test.september.View.MyView.FlowScrollView>
 

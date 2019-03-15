@@ -1,9 +1,12 @@
 package com.test.september.View;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -14,6 +17,7 @@ import com.test.september.View.Fragment.CommunityFragment;
 import com.test.september.View.Fragment.HomeFragment;
 import com.test.september.View.Fragment.RewardFragment;
 import com.test.september.View.Fragment.UserCartFragment;
+import com.yzq.zxinglibrary.common.Constant;
 
 import java.util.ArrayList;
 
@@ -27,8 +31,7 @@ import butterknife.ButterKnife;
 
 
 public class Home extends FragmentActivity {
-
-
+    int REQUEST_CODE_SCAN=111000;
     @BindView(R.id.frameLayout)
     FrameLayout frameLayout;
     @BindView(R.id.rb_home)
@@ -63,7 +66,6 @@ public class Home extends FragmentActivity {
         initFragment();
         //设置RadioGroup的监听
         initListener();
-
     }
 
     private void initListener() {
@@ -160,5 +162,11 @@ public class Home extends FragmentActivity {
                 }
             }
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 }

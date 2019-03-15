@@ -21,7 +21,7 @@ import android.widget.ImageView;
  */
 public class PullRefreshLayout extends ViewGroup {
     private static final float DECELERATE_INTERPOLATION_FACTOR = 2f;
-    private static final int DRAG_MAX_DISTANCE = 64;
+    private static final int DRAG_MAX_DISTANCE = 104;
     private static final int INVALID_POINTER = -1;
     private static final float DRAG_RATE = .5f;
 

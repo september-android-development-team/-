@@ -45,5 +45,12 @@ dependencies {
 
     //    网络互通
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.squareup.okhttp:okhttp:2.7.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+
+
+    //    二维码扫码
+    implementation 'com.github.yuzhiqiang1993:zxing:2.2.5'
+//    implementation ('com.alibaba.android:vlayout:1.2.8@aar') {
+//        transitive = true
+//    }
 }

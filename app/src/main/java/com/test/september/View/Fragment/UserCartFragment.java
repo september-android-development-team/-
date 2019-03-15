@@ -27,8 +27,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.test.september.R;
+import com.test.september.View.Activity.Setting;
 import com.test.september.View.Login;
 import com.test.september.util.PhotoPopupWindowUtil;
+import com.yzq.zxinglibrary.android.CaptureActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,7 +46,6 @@ import static android.app.Activity.RESULT_OK;
 
 public class UserCartFragment extends BaseFragment {
     private final static String TAG = UserCartFragment.class.getSimpleName();
-
 
     /***    照片选取常量*/
     private static final int REQUEST_IMAGE_GET = 0;
@@ -65,6 +66,9 @@ public class UserCartFragment extends BaseFragment {
     private ImageView blurImageView;
     private ImageView avatarImageView;
 
+
+    private Button to_Setting;
+
     //    private ListView listView;
     @Override
     public View initView() {
@@ -73,6 +77,15 @@ public class UserCartFragment extends BaseFragment {
         blurImageView = view.findViewById(R.id.h_back);
 //        listView=view.findViewById(R.id.user_lv);
         signOut=view.findViewById(R.id.sign_out);
+        to_Setting=view.findViewById(R.id.to_setting);
+
+        to_Setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mContext, Setting.class);
+                startActivity(intent);
+            }
+        });
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

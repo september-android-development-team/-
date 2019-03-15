@@ -2,6 +2,7 @@ package com.test.september.View.Fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
  */
 
 public abstract class BaseFragment extends Fragment{
+
 
     protected Context mContext;
 
@@ -52,5 +54,11 @@ public abstract class BaseFragment extends Fragment{
      * 当子类需要联网请求数据的时候，可以重写该方法，该方法中联网请求
      */
     public void initData() {
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 }
