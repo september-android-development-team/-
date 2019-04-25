@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="#fff"
+    tools:context=".View.Activity.CommunityActivity.Schedule"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:background="@android:color/holo_blue_light"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/holo_blue_light"
+            android:gravity="center"
+            android:text="日程安排"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"/>
+        <ImageButton
+            android:background="@android:color/holo_blue_light"
+            android:src="@drawable/add_people"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_year"
+        android:layout_width="match_parent"
+        android:text="年"
+        android:layout_height="wrap_content"/>
+    <com.test.september.View.MyView.SelectView
+        android:id="@+id/sv_year"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        sv:isCanvasLine="true"
+        sv:textColor="#e4e4e4"
+        sv:textSize="14dp"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_month"
+
+        android:layout_width="match_parent"
+        android:text="月"
+        android:layout_height="wrap_content"/>
+    <com.test.september.View.MyView.SelectView
+        android:id="@+id/sv_month"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        sv:isCanvasLine="false"
+        sv:textSize="14dp"
+        sv:unitLongLine="1"
+        sv:unitSize="40dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="关系"
+        android:id="@+id/tv_relation"
+        android:layout_marginTop="10dp"
+
+        android:layout_height="wrap_content"/>
+
+    <com.test.september.View.MyView.SelectView
+        android:id="@+id/sv_relation"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        sv:isCanvasLine="false"
+        sv:textSize="14dp"
+        sv:unitLongLine="1"
+        sv:unitSize="60dp"/>
+
+
+
+</LinearLayout>

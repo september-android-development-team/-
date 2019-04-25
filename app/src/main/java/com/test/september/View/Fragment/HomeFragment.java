@@ -1,40 +1,35 @@
 package com.test.september.View.Fragment;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.LinearLayout;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.cjj.MaterialRefreshLayout;
-import com.cjj.MaterialRefreshListener;
+import com.alibaba.android.vlayout.DelegateAdapter;
+import com.alibaba.android.vlayout.VirtualLayoutManager;
+import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
+import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
+import com.alibaba.android.vlayout.layout.StickyLayoutHelper;
 import com.test.september.Adapter.HomeAdapter;
+import com.test.september.Adapter.HomeAdapters.LinearAdapter;
+import com.test.september.Adapter.HomeAdapters.SingleLayoutAdapter;
+import com.test.september.Adapter.HomeAdapters.StickyLayoutAdapter;
 import com.test.september.R;
-import com.test.september.View.MyView.ChooseView.GridViewAdapter;
 import com.test.september.View.MyView.ChooseView.HeaderViewBean;
-import com.test.september.View.MyView.ChooseView.MyViewPagerAdapter;
-import com.test.september.View.MyView.PullRefreshLayout.PullRefreshLayout;
+import com.test.september.View.MyView.RecycleRefresh.FunGameRefreshView;
 import com.test.september.View.SearchToolBar;
-import com.test.september.util.DividerItemDecoration;
 import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.common.Constant;
 
@@ -52,12 +47,17 @@ import butterknife.Unbinder;
  * 首页Fragment
  */
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
+    @BindView(R.id.rv_list)
+    RecyclerView rvList;
+    Unbinder unbinder;
     private int REQUEST_CODE_SCAN = 111;
     private ViewPager mViewPagerGrid;
     private List<View> mViewPagerGridList;
     private List<HeaderViewBean> mDatas;
-
+    private FunGameRefreshView refreshView;
     private final static String TAG = HomeFragment.class.getSimpleName();
+
+    private ArrayList<String> Linearlists = new ArrayList<>();
     //    @BindView(R.id.recyclerview)
 //    RecyclerView recyclerview;
 //    //    @BindView(R.id.refresh_view)
@@ -65,7 +65,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private RecyclerView recyclerView;
 
     TextView tvSearchHome;
-    TextView tvMessageHome;
+//    TextView tvMessageHome;
 
     /**
      * 刚初始化的数据
@@ -84,13 +84,47 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private HomeAdapter mAdapter;
     private TextView tv_scan;
 //    private SearchView searchView;
-
+    private DelegateAdapter adapters;
+//    private LiveRoomRecyclerViewAdapter mliveRoomRecyclerViewAdapter;
+    private RecyclerView mRecyclerView ;
     @Override
     public View initView() {
         Log.e(TAG, "主页面的Fragment的UI被初始化了");
         View view = View.inflate(mContext, R.layout.fragment_home, null);
-        mViewPagerGrid=view.findViewById(R.id.vp);
-        tv_scan=view.findViewById(R.id.tv_scan);
+        tvSearchHome = view.findViewById(R.id.tv_search_home);
+        rvList=view.findViewById(R.id.rv_list);
+        refreshView =view.findViewById(R.id.refresh_fun_game);
+        refreshView.setGameOverText("游戏结束");
+        refreshView.setLoadingFinishedText("刷新完成");
+        refreshView.setLoadingText("正在刷新");
+        refreshView.setTopMaskText("一个彩蛋");
+        refreshView.setBottomMaskText("玩个游戏吧!");
+        refreshView.setOnRefreshListener(new FunGameRefreshView.FunGameRefreshListener() {
+            @Override
+            public void onPullRefreshing() {
+                SystemClock.sleep(2000);
+            }
+
+            @Override
+            public void onRefreshComplete() {
+//                刷新要做的事情
+                Log.d("Refresh_finish","刷新完成");
+            }
+        });
+
+
+
+        RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
+        rvList.setRecycledViewPool(viewPool);
+        viewPool.setMaxRecycledViews(0, 10);
+        VirtualLayoutManager layoutManager = new VirtualLayoutManager(mContext);
+        rvList.setLayoutManager(layoutManager);
+        adapters = new DelegateAdapter(layoutManager, true);
+        rvList.setAdapter(adapters);
+
+
+//        mViewPagerGrid=view.findViewById(R.id.vp);
+        tv_scan = view.findViewById(R.id.tv_scan);
         tv_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,93 +132,74 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
                     // 权限还没有授予，进行申请
-                    ActivityCompat.requestPermissions((Activity) mContext,
-                            new String[]{Manifest.permission.CAMERA}, 200); // 申请的 requestCode 为 200
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, 200); // 申请的 requestCode 为 200
                 } else {
                     Intent intent = new Intent(mContext, CaptureActivity.class);
-                    startActivityForResult(intent,REQUEST_CODE_SCAN);
+                    startActivityForResult(intent, REQUEST_CODE_SCAN);
                 }
             }
         });
-//        searchView = (SearchView) view.findViewById(R.id.search_view);
-//        searchView.setOnClickSearch(new ICallBack() {
-//            @Override
-//            public void SearchAciton(String string) {
-//                System.out.println("我收到了" + string);
-//            }
-//        });
 //
-//        // 5. 设置点击返回按键后的操作（通过回调接口）
-//        searchView.setOnClickBack(new bCallBack() {
-//            @Override
-//            public void BackAciton() {
-//
-//            }
-//
-//        });
-
-//        input = (EditText) view.findViewById(R.id.et_input);
-//        btn_search = (Button) view.findViewById(R.id.btn_search);
 
 
-//        refreshLayout = view.findViewById(R.id.refresh_view);
+
 //        recyclerview = view.findViewById(R.id.recyclerview);
-        recyclerView=view.findViewById(R.id.recyclerView);
+//        recyclerView=view.findViewById(R.id.recyclerView);
+//
+//
+//        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+//        String[] array = new String[20];
+//        for (int i = 0; i < array.length; i++) {
+//            array[i] = "string " + i;
+//        }
+//        recyclerView.setAdapter(new ArrayAdapter(mContext, array));
 
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        String[] array = new String[20];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = "string " + i;
-        }
-        recyclerView.setAdapter(new ArrayAdapter(mContext, array));
-
-        final PullRefreshLayout layout = (PullRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                layout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        layout.setRefreshing(false);
-                    }
-                }, 1000);
-            }
-        });
-        layout.setOnLoadListener(new PullRefreshLayout.OnLoadListener() {
-            @Override
-            public void onLoad() {
-                layout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        layout.setLoading(false);
-                    }
-                }, 1000);
-            }
-        });
+//        final PullRefreshLayout layout = (PullRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+//        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                layout.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        layout.setRefreshing(false);
+//                    }
+//                }, 1000);
+//            }
+//        });
+//        layout.setOnLoadListener(new PullRefreshLayout.OnLoadListener() {
+//            @Override
+//            public void onLoad() {
+//                layout.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        layout.setLoading(false);
+//                    }
+//                }, 1000);
+//            }
+//        });
 
 
         //FEATURE_20160216_1:添加仿美团Headerview begin
-        initDatas();
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        //塞GridView至ViewPager中：每页的个数
-        int pageSize = getResources().getInteger(R.integer.HomePageHeaderColumn) * 2;
-        //一共的页数等于 总数/每页数量，并取整。
-        int pageCount = (int) Math.ceil(mDatas.size() * 1.0 / pageSize);
-        //ViewPager viewpager = new ViewPager(this);
-        mViewPagerGridList = new ArrayList<View>();
-        for (int index = 0; index < pageCount; index++) {
-            //每个页面都是inflate出一个新实例
-            GridView grid = (GridView) inflater.inflate(R.layout.item_viewpager, mViewPagerGrid, false);
-            grid.setAdapter(new GridViewAdapter(mContext, mDatas, index));
-            grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Toast.makeText(mContext, "hello"+i+"d"+l, Toast.LENGTH_SHORT).show();
-                }
-            });
-            mViewPagerGridList.add(grid);
-        }
+//        initDatas();
+//        LayoutInflater inflater = LayoutInflater.from(mContext);
+//        //塞GridView至ViewPager中：每页的个数
+//        int pageSize = getResources().getInteger(R.integer.HomePageHeaderColumn) * 2;
+//        //一共的页数等于 总数/每页数量，并取整。
+//        int pageCount = (int) Math.ceil(mDatas.size() * 1.0 / pageSize);
+//        //ViewPager viewpager = new ViewPager(this);
+//        mViewPagerGridList = new ArrayList<View>();
+//        for (int index = 0; index < pageCount; index++) {
+//            //每个页面都是inflate出一个新实例
+//            GridView grid = (GridView) inflater.inflate(R.layout.item_viewpager, mViewPagerGrid, false);
+//            grid.setAdapter(new GridViewAdapter(mContext, mDatas, index));
+//            grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                    Toast.makeText(mContext, "hello"+i+"d"+l, Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//            mViewPagerGridList.add(grid);
+//        }
 //给ViewPager设置Adapter
         //viewpager.setAdapter(new MyViewPagerAdapter(viewpagerList));
 //将ViewPager作为HeaderView设置给ListView
@@ -194,12 +209,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         addHeaderView(viewpager);*/
 //FEATURE_20160216_1:添加仿美团Headerview end
 
-        mViewPagerGrid.setAdapter(new MyViewPagerAdapter(mViewPagerGridList));
+//        mViewPagerGrid.setAdapter(new MyViewPagerAdapter(mViewPagerGridList));
 
 
 
-        tvSearchHome=view.findViewById(R.id.tv_search_home);
-        tvMessageHome=view.findViewById(R.id.tv_message_home);
+//        tvMessageHome=view.findViewById(R.id.tv_message_home);
 //        initDatas();
 //        initRefresh();
         return view;
@@ -211,51 +225,50 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
-            case 200:
-            {
+            case 200: {
+                Intent intent = new Intent(mContext, CaptureActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_SCAN);
+            }
+            break;
+            case 300: {
 
             }
-                break;
-            case 300:
-            {
-
-            }
-                break;
+            break;
         }
     }
 
-
-    static class ArrayAdapter extends RecyclerView.Adapter<ViewHolder>{
-
-        private String[] mArray;
-
-        public ArrayAdapter(Context context, String[] array) {
-            mArray = array;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            return new ViewHolder(View.inflate(viewGroup.getContext(), android.R.layout.simple_list_item_1, null));
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder viewHolder, int i) {
-            viewHolder.mTextView.setText(mArray[i]);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mArray.length;
-        }
-    }
-
-    static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView mTextView;
-        public ViewHolder(View itemView) {
-            super(itemView);
-            mTextView = (TextView) itemView;
-        }
-    }
+//
+//    static class ArrayAdapter extends RecyclerView.Adapter<ViewHolder>{
+//
+//        private String[] mArray;
+//
+//        public ArrayAdapter(Context context, String[] array) {
+//            mArray = array;
+//        }
+//
+//        @Override
+//        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+//            return new ViewHolder(View.inflate(viewGroup.getContext(), android.R.layout.simple_list_item_1, null));
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(ViewHolder viewHolder, int i) {
+//            viewHolder.mTextView.setText(mArray[i]);
+//        }
+//
+//        @Override
+//        public int getItemCount() {
+//            return mArray.length;
+//        }
+//    }
+//
+//    static class ViewHolder extends RecyclerView.ViewHolder{
+//        public TextView mTextView;
+//        public ViewHolder(View itemView) {
+//            super(itemView);
+//            mTextView = (TextView) itemView;
+//        }
+//    }
 
 
 //
@@ -327,85 +340,82 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //        });
 //    }
 //
-//    /**
-//     * 初始化数据
-//     */
-//    private void initDatas() {
+
+
 //
-//        datas.add("New York");
-//        datas.add("Bei Jing");
-//        datas.add("Boston");
-//        datas.add("London");
-//        datas.add("San Francisco");
-//        datas.add("Chicago");
-//        datas.add("Shang Hai");
-//        datas.add("Tian Jin");
-//        datas.add("Zheng Zhou");
-//        datas.add("Hang Zhou");
-//        datas.add("Guang Zhou");
-//        datas.add("Fu Gou");
-//        datas.add("Zhou Kou");
+//    private void initDatas() {
+//        mDatas = new ArrayList<HeaderViewBean>();
+//        for (int i = 0; i < 3; i++) {
+//            mDatas.add(new HeaderViewBean("美食", R.drawable.ic_category_0));
+//            mDatas.add(new HeaderViewBean("电影", R.drawable.ic_category_1));
+//            mDatas.add(new HeaderViewBean("酒店", R.drawable.ic_category_2));
+//            mDatas.add(new HeaderViewBean("KTV", R.drawable.ic_category_3));
+//            mDatas.add(new HeaderViewBean("外卖", R.drawable.ic_category_4));
+//            mDatas.add(new HeaderViewBean("美女6", R.drawable.ic_category_5));
+//            mDatas.add(new HeaderViewBean("美女7", R.drawable.ic_category_6));
+//            mDatas.add(new HeaderViewBean("美女8", R.drawable.ic_category_7));
+//            mDatas.add(new HeaderViewBean("帅哥", R.drawable.ic_category_8));
+//            mDatas.add(new HeaderViewBean("帅哥2", R.drawable.ic_category_9));
+//            mDatas.add(new HeaderViewBean("帅哥3", R.drawable.ic_category_10));
+//            mDatas.add(new HeaderViewBean("帅哥4", R.drawable.ic_category_11));
+//            mDatas.add(new HeaderViewBean("帅哥5", R.drawable.ic_category_12));
+//            mDatas.add(new HeaderViewBean("帅哥6", R.drawable.ic_category_13));
+//            mDatas.add(new HeaderViewBean("帅哥7", R.drawable.ic_category_14));
+//            mDatas.add(new HeaderViewBean("帅哥8", R.drawable.ic_category_15));
+//            mDatas.add(new HeaderViewBean("帅哥9", R.drawable.ic_category_16));
+//        }
 //    }
-
-
-    private void initDatas() {
-        mDatas = new ArrayList<HeaderViewBean>();
-        for (int i = 0; i < 3; i++) {
-            mDatas.add(new HeaderViewBean("美食", R.drawable.ic_category_0));
-            mDatas.add(new HeaderViewBean("电影", R.drawable.ic_category_1));
-            mDatas.add(new HeaderViewBean("酒店", R.drawable.ic_category_2));
-            mDatas.add(new HeaderViewBean("KTV", R.drawable.ic_category_3));
-            mDatas.add(new HeaderViewBean("外卖", R.drawable.ic_category_4));
-            mDatas.add(new HeaderViewBean("美女6", R.drawable.ic_category_5));
-            mDatas.add(new HeaderViewBean("美女7", R.drawable.ic_category_6));
-            mDatas.add(new HeaderViewBean("美女8", R.drawable.ic_category_7));
-            mDatas.add(new HeaderViewBean("帅哥", R.drawable.ic_category_8));
-            mDatas.add(new HeaderViewBean("帅哥2", R.drawable.ic_category_9));
-            mDatas.add(new HeaderViewBean("帅哥3", R.drawable.ic_category_10));
-            mDatas.add(new HeaderViewBean("帅哥4", R.drawable.ic_category_11));
-            mDatas.add(new HeaderViewBean("帅哥5", R.drawable.ic_category_12));
-            mDatas.add(new HeaderViewBean("帅哥6", R.drawable.ic_category_13));
-            mDatas.add(new HeaderViewBean("帅哥7", R.drawable.ic_category_14));
-            mDatas.add(new HeaderViewBean("帅哥8", R.drawable.ic_category_15));
-            mDatas.add(new HeaderViewBean("帅哥9", R.drawable.ic_category_16));
-        }
-    }
 
     @Override
     public void initData() {
         super.initData();
+
+        initLinearData();
+
+        //singleHelper布局
+        SingleLayoutHelper singHelper=new SingleLayoutHelper();
+        singHelper.setBgColor(Color.parseColor("#00B8D4"));
+        singHelper.setMargin(5,0,5,5);
+        adapters.addAdapter(new SingleLayoutAdapter(mContext,singHelper));
+
+
+        //吸顶的Helper
+        StickyLayoutHelper stickyHelper = new StickyLayoutHelper(true);
+        adapters.addAdapter(new StickyLayoutAdapter(mContext,stickyHelper));
+
+
+//        mliveRoomRecyclerViewAdapter = new LiveRoomRecyclerViewAdapter(mContext,mList,);
+//                mRecyclerView = (RecyclerView)v.findViewById(R.id.rv_list);
+//        LinearLayoutHelper linearHelper1 = new LinearLayoutHelper(5);
+//        adapters.addAdapter(new HorizontalAdapter(mContext,mList, linearHelper1));
+
+        //LinearHelper布局
+        LinearLayoutHelper linearHelper = new LinearLayoutHelper(5);
+        adapters.addAdapter(new LinearAdapter(mContext,Linearlists, linearHelper));
+
+
         tvSearchHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(mContext, SearchToolBar.class);
+                Intent intent = new Intent(mContext, SearchToolBar.class);
                 startActivity(intent);
             }
         });
-        tvMessageHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(mContext, CommunityFragment.class);
-                startActivity(intent);
-            }
-        });
-//        for (int i = 0; i < mVals.length; i++) {
-//            TextView tv = (TextView) mInflater.inflate(
-//                    R.layout.search_label_tv, mFlowLayout, false);
-//            tv.setText(mVals[i]);
-//            final String str = tv.getText().toString();
-//            //点击事件
-//            tv.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //加入搜索历史纪录记录
-//                    Toast.makeText(mContext, str, Toast.LENGTH_LONG).show();
-//                }
-//            });
-//            mFlowLayout.addView(tv);
-//        }
-
         Log.e(TAG, "主页面的Fragment的数据被初始化了");
     }
+
+    private void initLinearData() {
+        for (int i = 0; i < 18; i++) {
+            Linearlists.add(" 表单 :" + i);
+        }
+    }
+
+
+    @Override
+    public void setViewListener() {
+
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -419,8 +429,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         if (requestCode == REQUEST_CODE_SCAN && resultCode == getActivity().RESULT_OK) {
             if (data != null) {
                 String content = data.getStringExtra(Constant.CODED_CONTENT);
-                Log.d("result",content);
+                Log.d("result", content);
             }
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

@@ -2,20 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#FFFFFF"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
 
     tools:context=".View.Home">
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
+    <!--<FrameLayout-->
+        <!--android:id="@+id/frameLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="#C8BDBBBB"-->
+        <!--android:layout_weight="1"-->
+        <!--/>-->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#C8BDBBBB"
-        android:layout_weight="1"
-        />
-
+        android:background="#000000" />
     <RadioGroup
         android:id="@+id/rg_main"
         android:layout_width="match_parent"

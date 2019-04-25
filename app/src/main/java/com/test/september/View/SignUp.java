@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import com.test.september.R;
 import com.test.september.util.HttpUtil;
 import com.test.september.util.MD5Util;
+import com.test.september.util.SharedPreferences.SharedPrefUtil;
 
 import java.io.IOException;
 
@@ -41,7 +42,7 @@ public class SignUp extends AppCompatActivity {
     private EditText _input_Vcard;
 
 
-    private String getCode_url="https://api.cnsepte.com:448/code";
+    private String getCode_url="https://www.domain/code";
 //            "http://www.domain/code";
     private String register_url="http://www.domain/user/register";
     private String token;
@@ -161,6 +162,7 @@ public class SignUp extends AppCompatActivity {
 //            password = _passwordText.getText().toString();
 //            name = _nameText.getText().toString();
             VCode=_input_Vcard.getText().toString();
+
             sendRequestWithOkHttp(username,password,VCode);
         }
 
@@ -208,6 +210,8 @@ public class SignUp extends AppCompatActivity {
         /****
          * 插入相应跳转界面
          * **/
+        //保存登录状态
+        SharedPrefUtil.setParam(this, SharedPrefUtil.IS_LOGIN, true);
         Intent intent=new Intent(SignUp.this,Home.class);
         startActivity(intent);
         finish();
@@ -237,8 +241,8 @@ public class SignUp extends AppCompatActivity {
             _phoneText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("请输入长度为4到10的密码!");
+        if (password.isEmpty() || password.length() < 6 || password.length() > 17) {
+            _passwordText.setError("请输入长度为6到16的密码!");
             valid = false;
         } else {
             _passwordText.setError(null);
@@ -246,14 +250,7 @@ public class SignUp extends AppCompatActivity {
         return valid;
     }
 
-    public String getTime(){
 
-        long time=System.currentTimeMillis()/1000;//获取系统时间的10位的时间戳
-
-        String  str=String.valueOf(time);
-
-        return str;
-    }
 
 /*****
  * 请求验证码
@@ -305,15 +302,17 @@ public class SignUp extends AppCompatActivity {
                 try {
                     OkHttpClient okHttpClient = new OkHttpClient();   //定义一个OKHttpClient实例
                     RequestBody requestBody = new FormBody.Builder()
+                            .add("type","0")
                             .add("username",Username)
                             .add("password", password)
                             .add("code", String.valueOf(code))
                             .build();
-                    Log.d("Username", Username);
-                    Log.d("Password", password);
+//                    Log.d("Username", Username);
+//                    Log.d("Password", password);
                     //实例化一个Respon对象，用于发送HTTP请求
                     Request request = new Request.Builder()
-                            .url("https://api.cnsepte.com:448/user/register")             //设置目标网址
+                            .url("https://api.cnsepte.com:448/user/auth")             //设置目标网址
+//                    https://api.cnsepte.com:448/user/register
                             .post(requestBody)
                             .build();
                     Response response = okHttpClient.newCall(request).execute();  //获取服务器返回的数据
@@ -329,6 +328,10 @@ public class SignUp extends AppCompatActivity {
         }).start();
     }
 
+//    {"code":"200","msg":"hhh","data":"bk79ka76r85d45a4ctlt5g5ri1"}
+//    {"code":"200","msg":"hhh","data":"bk79ka76r85d45a4ctlt5g5ri1"}
+//    {"code":"200","msg":"hhh","data":"2v1sfcjvi427mpijvbo8krutjf"}
+//    {"code":"200","msg":"hhh","data":"43h0gf4e8mhpdgdo3jf3er8osa"}
     /******
      * json数据解析
      * 方法：Gson
@@ -376,14 +379,11 @@ public class SignUp extends AppCompatActivity {
         private int code;
         private String msg;
         private  App.data data;
-
         public static class data{
             private String test;
-
-            public String getTest() {
+            public String getTest(){
                 return test;
             }
-
             public void setTest(String test) {
                 this.test = test;
             }
@@ -414,6 +414,10 @@ public class SignUp extends AppCompatActivity {
 
     }
 
-
+    public String getTime(){
+        long time=System.currentTimeMillis()/1000;//获取系统时间的10位的时间戳
+        String  str=String.valueOf(time);
+        return str;
+    }
 
 }

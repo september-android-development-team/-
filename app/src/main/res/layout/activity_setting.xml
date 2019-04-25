@@ -1,283 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:openDrawer="start">
+    <TextView
+        android:background="@android:color/holo_blue_light"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="设置"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"/>
+
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@android:color/holo_blue_light"
-            android:gravity="center"
-            android:text="设置"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dip"
-            android:gravity="bottom|left"
-            android:paddingLeft="10dip"
-            android:text="新消息提醒"
-            android:textColor="@android:color/darker_gray"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:id="@+id/main_set"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="3dp"
-            android:background="@android:color/white"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="#EEEEEE"
+                    />
+                <TextView
+                    android:id="@+id/to_AccountSafe_page"
+                    android:text="账户与安全"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:paddingLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:textColor="#000"
+                    android:background="#FFFFFF"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
 
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="#EEEEEE"
+                />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:text="接受新消息通知"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="13sp"/>
-
-            <com.test.september.View.MyView.SwitchButton
-                android:id="@+id/switch_accept_news"
-                android:layout_width="wrap_content"
-                app:switchStatus="open"
-                android:layout_height="28dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="15dp">
-
-            </com.test.september.View.MyView.SwitchButton>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/ll_sound"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="1dp"
-            android:background="@android:color/white"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@android:color/darker_gray"
-                android:padding="10dp"
-                android:text="声音"
-                android:textSize="13sp"/>
-
-            <com.test.september.View.MyView.SwitchButton
-                android:id="@+id/switch_sound"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="15dp">
-
-            </com.test.september.View.MyView.SwitchButton>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_shock"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="1dp"
-            android:background="@android:color/white"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:textColor="@android:color/darker_gray"
-                android:padding="10dp"
-                android:text="震动"
-                android:textSize="13sp"/>
-
-            <com.test.september.View.MyView.SwitchButton
-                android:id="@+id/switch_shock"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="15dp">
-
-            </com.test.september.View.MyView.SwitchButton>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="4dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="bottom|left"
-            android:paddingLeft="10dp"
-            android:text="聊天"
-            android:textColor="@android:color/darker_gray"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="3dp"
-            android:background="@android:color/white"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:textColor="@android:color/darker_gray"
-                android:padding="10dp"
-                android:text="使用扬声器播放语音内容"
-                android:textSize="13sp"/>
-
-            <com.test.september.View.MyView.SwitchButton
-                android:id="@+id/switch_loundspeaker"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="15dp">
-
-            </com.test.september.View.MyView.SwitchButton>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="4dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="bottom|left"
-            android:paddingLeft="10dp"
-            android:text="自定义设置"
-            android:textColor="@android:color/darker_gray"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="1dp"
-            android:background="@android:color/white"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/to_VoiceSetting_page"
+                android:text="音效与通知"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                />
+            <View
                 android:layout_marginLeft="10dp"
-                android:textColor="@android:color/darker_gray"
-                android:text="闹钟铃声"/>
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
 
+                />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:drawableRight="@mipmap/right"
-                android:text="爱要坦荡荡"
-                android:textColor="@android:color/darker_gray"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="1dp"
-            android:background="@android:color/white"
-            android:gravity="center_vertical"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/to_secret_page"
+                android:text="隐私与政策"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                />
+            <View
                 android:layout_marginLeft="10dp"
-                android:textColor="@android:color/darker_gray"
-                android:text="电话铃声"/>
-
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
+                />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:drawableRight="@mipmap/right"
-                android:text="壁咚"
-                android:textColor="@android:color/darker_gray"/>
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="1dp"
-            android:background="@android:color/white"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/usual_page"
+                android:text="通用"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                />
+            <View
                 android:layout_marginLeft="10dp"
-                android:text="短信铃声"
-                android:textColor="@android:color/darker_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
+
                 />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:drawableRight="@mipmap/right"
-                android:text="Fadeln"
-                android:textColor="@android:color/darker_gray"/>
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="1dp"
-            android:background="@android:color/white"
-            android:gravity="center_vertical">
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="#EEEEEE"
+                />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/problem_back_page"
+                android:text="问题反馈"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                />
+            <View
                 android:layout_marginLeft="10dp"
-                android:textColor="@android:color/darker_gray"
-                android:text="个性化设置"/>
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
 
+                />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:drawableRight="@mipmap/right"
-                android:textColor="@android:color/darker_gray"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="1dp"
-            android:background="@android:color/white"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/about_page"
+                android:text="关于"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                />
+            <View
                 android:layout_marginLeft="10dp"
-                android:textColor="@android:color/darker_gray"
-                android:text="亮度设置"/>
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:drawableRight="@mipmap/right"
-                android:textColor="@android:color/darker_gray"/>
-        </RelativeLayout>
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_weight="10.5"
+            android:background="#ff2525"
+            android:gravity="center"
+            android:textColor="#EEEEEE"
+            android:text="退出登录"
+            android:textSize="20sp"
+            android:id="@+id/sign_out"
+            android:visibility="gone"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
-</ScrollView>
+
+</LinearLayout>

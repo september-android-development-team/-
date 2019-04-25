@@ -14,9 +14,12 @@
     <color name="iron">#CCCCCC</color>
     <color name="white">#FFFFFF</color>
     <!--B971F1AF-->
-    <color name="primary">@android:color/holo_blue_light</color>
-    <color name="primary_dark">@android:color/holo_blue_light</color>
+    <!--<color name="primary">@android:color/holo_blue_light</color>-->
+    <color name="primary">#FFFFFF</color>
+    <!--<color name="primary_dark">@android:color/holo_blue_light</color>-->
+    <color name="primary_dark">#FFFFFF</color>
     <color name="primary_darker">#CC1D1D</color>
+    <color name="primary_background">#31FCFCFC</color>
     <color name="accent">#29E7BB</color>
 
     <color name="default_line_color">#e6e6e6</color>
@@ -37,6 +40,15 @@
     <!--自定义按钮颜色-->
     <color name="theme_red">#2ff00f</color>
     <color name="color_check_bg">#2CCEFF</color>
+
+    <!--自定义弹窗的颜色-->
+    <color name="text_color">#FFFFFF</color>
+    <color name="divider_color">#11000000</color>
+    <color name="msg_color">#FFFFFFFF</color>
+    <color name="dialog_bg">#ffe74c3c</color>
+
+    <color name="btn_press_color">#66000000</color>
+    <color name="btn_unpress_color">#22000000</color>
 </resources>
 
 

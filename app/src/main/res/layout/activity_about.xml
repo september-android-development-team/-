@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EEEEEE"
+    tools:context=".View.Activity.SettingsActivity.AboutActivity">
+    <TextView
+        android:background="@android:color/holo_blue_light"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="关于"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:id="@+id/main_set"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+
+                    />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/License_Information"
+                android:text="证照信息"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                />
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
+
+                />
+            <TextView
+                android:id="@+id/Copyright_information"
+                android:text="版权信息"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                />
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
+
+                />
+            <TextView
+                android:id="@+id/Software_License_Agreement"
+                android:text="软件许可使用协议"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                />
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
+                />
+            <TextView
+                android:id="@+id/September_Platform_Service_Agreement"
+                android:text="九月平台服务协议"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                />
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
+
+                />
+
+
+
+            <TextView
+                android:id="@+id/problem_back_page"
+                android:text="隐私政策"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                />
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
+
+                />
+            <TextView
+                android:id="@+id/about_page"
+                android:text="帮助"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                />
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
+
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_weight="6"
+            android:textColor="#6B6B6B"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            />
+        <TextView
+            android:layout_weight="7"
+            android:textColor="#6B6B6B"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="当前版本号:0.5.1"
+            />
+        <TextView
+            android:layout_weight="7"
+            android:id="@+id/newVersion"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="检查更新"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:background="#3BA4E0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

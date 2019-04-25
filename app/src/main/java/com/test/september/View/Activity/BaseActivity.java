@@ -13,6 +13,7 @@ import android.view.WindowManager;
 //import com.enjoyshop.R;
 //import com.enjoyshop.bean.User;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.test.september.App;
 import com.test.september.R;
 
 import butterknife.ButterKnife;
@@ -32,6 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getContentResourseId());
         setStatusBar();
+//        App.getInstance().addActivity(this);
         ButterKnife.bind(this);
         init();
     }
@@ -47,7 +49,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         initSystemBar(this);
-
     }
 
 
@@ -82,11 +83,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-
     protected abstract void init();
-
     protected abstract int getContentResourseId();
-
     public void startActivity(Intent intent, boolean isNeedLogin) {
 
         if (isNeedLogin) {
@@ -104,4 +102,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        App.getInstance().destory();
+    }
 }

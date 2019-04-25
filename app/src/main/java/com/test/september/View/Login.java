@@ -9,6 +9,7 @@ import android.util.Log;
 
 import android.content.Intent;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,9 +18,11 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.test.september.App;
 import com.test.september.R;
 import com.test.september.util.HttpUtil;
 import com.test.september.util.MD5Util;
+import com.test.september.util.SharedPreferences.SharedPrefUtil;
 
 import java.io.IOException;
 
@@ -52,6 +55,7 @@ public class Login extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        App.getInstance().addActivity(this);
         _phoneText=findViewById(R.id.input_phone_login);
          _passwordText=findViewById (R.id.input_password);
         _loginButton=findViewById(R.id.btn_login);
@@ -61,11 +65,11 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 login();
+//                SharedPrefUtil.setParam(Login.this, SharedPrefUtil.IS_LOGIN, true);
             }
         });
 
         _signupLink.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 // Start the Signup activity
@@ -81,7 +85,8 @@ public class Login extends AppCompatActivity {
             onLoginFailed();
         }else{
             String email = _phoneText.getText().toString();
-            String password = _passwordText.getText().toString();
+            String password =MD5Util.md5(_passwordText.getText().toString());
+            Log.d("pass",password);
             sendRequestWithOkHttp(email,password);
             _loginButton.setEnabled(false);
             final ProgressDialog progressDialog = new ProgressDialog(Login.this,
@@ -135,6 +140,10 @@ public class Login extends AppCompatActivity {
         /****
          * 插入相应跳转界面
          * **/
+        //保存登录状态
+        SharedPrefUtil.setParam(this, SharedPrefUtil.IS_LOGIN, true);
+        //保存登录个人信息
+//        SharedPrefUtil.setParam(this, SharedPrefUtil.LOGIN_DATA,"1");
         Intent intent=new Intent(this,Home.class);
         startActivity(intent);
         finish();
@@ -181,6 +190,7 @@ public class Login extends AppCompatActivity {
                 try {
                     OkHttpClient okHttpClient = new OkHttpClient();   //定义一个OKHttpClient实例
                     RequestBody requestBody = new FormBody.Builder()
+                            .add("type","1")
                             .add("username", Username)
                             .add("password",Password)
                             .build();
@@ -188,7 +198,7 @@ public class Login extends AppCompatActivity {
                     Log.d("Password", Password);
                     //实例化一个Respon对象，用于发送HTTP请求
                     Request request = new Request.Builder()
-                            .url("https://api.cnsepte.com:448/user/login")             //设置目标网址
+                            .url("https://api.cnsepte.com:448/user/auth")             //设置目标网址
 //                    http://www.domain/user/login
 //                    https://api.cnsepte.com:88/user/login
                             .post(requestBody)
@@ -223,6 +233,7 @@ public class Login extends AppCompatActivity {
             Log.d("uuid", uuid);
         }
     }
+
 
 
     public static class Data {
@@ -322,6 +333,23 @@ public class Login extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        App.getInstance().destory();
+    }
 
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+//            Login.this.finish();
+            Intent intent = new Intent(Login.this, Home.class);
+            intent.putExtra("position", 3);
+            startActivity(intent);
+//            onDestroy();
+//            System.exit(0);
+            return true;
+        }
+        return super.onKeyDown(keyCode,event);
+    }
 }

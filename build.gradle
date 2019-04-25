@@ -3,13 +3,23 @@
 buildscript {
     
     repositories {
+
         google()
         jcenter()
+        maven {
+            url "http://maven.aliyun.com/nexus/content/repositories/releases"
+        }
         maven { url 'https://jitpack.io' }
         mavenCentral()
+
     }
+
     dependencies {
+
         classpath 'com.android.tools.build:gradle:3.2.0'
+        // 添加emas-services插件
+//        classpath 'com.aliyun.ams:emas-services:1.0.1'
+
 //        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -21,7 +31,9 @@ allprojects {
     repositories {
         google()
         jcenter()
-
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
+        }
         maven { url 'https://jitpack.io' }
         mavenCentral()
     }

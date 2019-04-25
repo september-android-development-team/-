@@ -1,113 +1,327 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".View.SearchToolBar">
-    <LinearLayout
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
+        android:layout_height="50dip"
+        android:orientation="horizontal"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip">
 
         <EditText
-
             android:id="@+id/et_input"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:textCursorDrawable="@drawable/cursor_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:textColor="#1CEEA5"
-            android:background="@drawable/search_home_shape"
+            android:layout_toLeftOf="@+id/tv_cancel"
+            android:background="@drawable/sp_search_box_bg"
             android:drawableLeft="@drawable/ic_search"
-            android:drawablePadding="10dp"
-            android:gravity="center_vertical"
-            android:hint="请输入你想搜索的内容"
-            android:maxLines="1"
-            android:padding="5dp"
-            android:textSize="13sp" />
+            android:drawablePadding="10dip"
+            android:textColor="#000000"
+            android:gravity="left|center"
+            android:hint="请输入关键字"
+            android:textCursorDrawable="@drawable/color_cursor_black"
+            android:textSize="12sp" />
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv_message_home"-->
+        <!--android:drawableRight="@drawable/ic_delect"-->
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:text="搜 索"
+            android:textColor="#3682cc" />
+    </RelativeLayout>
+
+    <View style="@style/LineHorizontal" />
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C8BDBBBB"
+        android:layout_weight="1"
+        />
+
+    <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="#f4f5f7"-->
+        <!--android:id="@+id/history"-->
+        <!--android:visibility="visible"-->
+        <!--android:overScrollMode="never">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical">-->
+
+
+
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dip"-->
+                <!--android:background="@android:color/white"-->
+                <!--android:paddingLeft="10dip"-->
+                <!--android:paddingRight="10dip">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_history"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:hint="历史记录"-->
+                    <!--android:onClick="onClick"-->
+                    <!--android:textColorHint="#939393"-->
+                    <!--android:textSize="14sp" />-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/iv_arrow"-->
+                    <!--android:layout_width="20dip"-->
+                    <!--android:layout_height="20dip"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_toRightOf="@+id/tv_history"-->
+                    <!--android:onClick="onClick"-->
+                    <!--android:rotation="180"-->
+                    <!--android:src="@mipmap/arrow_up" />-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/iv_delete"-->
+                    <!--android:layout_width="20dip"-->
+                    <!--android:layout_height="20dip"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:onClick="onClick"-->
+                    <!--android:src="@drawable/ic_delect" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_finish"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:hint="完成"-->
+                    <!--android:onClick="onClick"-->
+                    <!--android:textColorHint="#939393"-->
+                    <!--android:textSize="14sp"-->
+                    <!--android:visibility="gone" />-->
+
+            <!--</RelativeLayout>-->
+
+            <!--<View-->
+                <!--style="@style/LineHorizontal"-->
+                <!--android:paddingRight="10dip" />-->
+
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/rv_recommend_bar_history"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@android:color/white"-->
+                <!--android:overScrollMode="never">-->
+
+            <!--</android.support.v7.widget.RecyclerView>-->
+
+
+            <!--<View-->
+                <!--style="@style/LineHorizontal"-->
+                <!--android:layout_marginTop="10dip" />-->
+
+            <!--<LinearLayout-->
+                <!--android:background="@android:color/white"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/linear_show_recommend"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:gravity="center"-->
+                    <!--android:onClick="onClick"-->
+                    <!--android:visibility="gone"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="40dip">-->
+
+                    <!--<ImageView-->
+                        <!--android:src="@drawable/ic_see"-->
+                        <!--android:layout_width="20dip"-->
+                        <!--android:layout_height="20dip" />-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_show_recommend"-->
+                        <!--android:layout_marginLeft="5dip"-->
+                        <!--android:text="查看全部推荐词"-->
+                        <!--android:textColor="#939393"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content" />-->
+                <!--</LinearLayout>-->
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/linear_recommendbar2"-->
+                    <!--android:background="@android:color/white"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <!--<RelativeLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="40dip"-->
+                        <!--android:background="@android:color/white"-->
+                        <!--android:paddingLeft="10dip"-->
+                        <!--android:paddingRight="10dip">-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:hint="猜你想搜"-->
+                            <!--android:textColorHint="#939393"-->
+                            <!--android:textSize="14sp" />-->
+
+                        <!--<ImageView-->
+                            <!--android:id="@+id/iv_recommend_toggle"-->
+                            <!--android:layout_width="25dip"-->
+                            <!--android:layout_height="25dip"-->
+                            <!--android:layout_alignParentRight="true"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:onClick="onClick"-->
+                            <!--android:src="@drawable/ic_hide" />-->
+
+                    <!--</RelativeLayout>-->
+
+                    <!--<View style="@style/LineHorizontal" />-->
+
+                    <!--<android.support.v7.widget.RecyclerView-->
+                        <!--android:id="@+id/rv_recommend_bar_2"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@android:color/white"-->
+                        <!--android:overScrollMode="never"></android.support.v7.widget.RecyclerView>-->
+                <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+
+
+
+    <!--</android.support.v4.widget.NestedScrollView>-->
+</LinearLayout>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--tools:context=".View.SearchToolBar">-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="5dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<EditText-->
+
+            <!--android:id="@+id/et_input"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:textCursorDrawable="@drawable/cursor_color"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:textColor="#1CEEA5"-->
+            <!--android:background="@drawable/search_home_shape"-->
+            <!--android:drawableLeft="@drawable/ic_search"-->
+            <!--android:drawablePadding="10dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:hint="请输入你想搜索的内容"-->
+            <!--android:maxLines="1"-->
+            <!--android:padding="5dp"-->
+            <!--android:textSize="13sp" />-->
+
+        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/tv_message_home"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_margin="10dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:drawableTop="@drawable/ic_planet"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:text="消息"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textColor="#fff"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<EditText&ndash;&gt;-->
+        <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:hint="请输入你想搜索的内容"&ndash;&gt;-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--&lt;!&ndash;android:paddingLeft="5dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:paddingRight="5dp"/>&ndash;&gt;-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_search"-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="10dp"-->
-            <!--android:drawableTop="@drawable/ic_planet"-->
-            <!--android:text="消息"-->
-            <!--android:textColor="#fff"/>-->
-        <!--<EditText-->
-        <!---->
-            <!--android:layout_width="0dp"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:text="搜索"/>-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/layout_notice"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
+
+
+        <!--<com.test.september.View.MyView.FlowLayout-->
+            <!--android:id="@+id/flowlayout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+        <!--</com.test.september.View.MyView.FlowLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/search_history_ll"-->
+            <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_weight="1"-->
-            <!--android:hint="请输入你想搜索的内容"-->
-            <!---->
-            <!--android:paddingLeft="5dp"-->
-            <!--android:paddingRight="5dp"/>-->
+            <!--android:orientation="vertical"-->
+            <!--android:visibility="gone">-->
 
-        <Button
-            android:id="@+id/btn_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="搜索"/>
-    </LinearLayout>
+            <!--<TextView-->
+                <!--android:id="@+id/contentTextView"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingBottom="4dp"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:paddingTop="4dp"-->
+                <!--android:text="历史搜索"-->
+                <!--android:textSize="12sp"/>-->
 
-    <LinearLayout
-        android:id="@+id/layout_notice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            <!--<ListView-->
+                <!--android:id="@+id/search_history_lv"-->
+                <!--style="@style/common_list"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:divider="@color/default_line_color"-->
+                <!--android:dividerHeight="0.5dp"-->
+                <!--android:listSelector="@drawable/list_item_selector">-->
+            <!--</ListView>-->
 
-
-        <com.test.september.View.MyView.FlowLayout
-            android:id="@+id/flowlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </com.test.september.View.MyView.FlowLayout>
-
-        <LinearLayout
-            android:id="@+id/search_history_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/contentTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="4dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="4dp"
-                android:text="历史搜索"
-                android:textSize="12sp"/>
-
-            <ListView
-                android:id="@+id/search_history_lv"
-                style="@style/common_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:divider="@color/default_line_color"
-                android:dividerHeight="0.5dp"
-                android:listSelector="@drawable/list_item_selector">
-            </ListView>
-
-            <Button
-                android:id="@+id/clear_history_btn"
-                android:layout_width="210dp"
-                android:layout_height="38dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/round_btn_selector"
-                android:text="清除历史搜索记录"
-                android:textSize="14sp"/>
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+            <!--<Button-->
+                <!--android:id="@+id/clear_history_btn"-->
+                <!--android:layout_width="210dp"-->
+                <!--android:layout_height="38dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:background="@drawable/round_btn_selector"-->
+                <!--android:text="清除历史搜索记录"-->
+                <!--android:textSize="14sp"/>-->
+        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+<!--</LinearLayout>-->

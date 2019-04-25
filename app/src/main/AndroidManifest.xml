@@ -2,19 +2,64 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.test.september">
-    <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> -->
+    <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 存储权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 网络权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 联系人权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- 自动重启权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
+        android:name=".SophixStubApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Dark"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".View.Activity.Setting"></activity>
+
+
+        <!--<service-->
+            <!--android:name=".Service.PatchService"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true"-->
+            <!--android:process=":noficition"-->
+            <!--tools:ignore="InnerclassSeparator" />-->
+        <service
+            android:name=".Service.GrayService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":live"
+            tools:ignore="InnerclassSeparator" />
+        <service
+            android:name=".Service.KeepliveService"
+            android:process=":live"
+            tools:ignore="InnerclassSeparator" />
+        <service
+            android:name=".util.Keepalive.KeepLiveManager$GrayInnerService"
+            android:process=":live" /> <!-- <service -->
+        <!-- android:name=".Service.JobSchedulerService" -->
+        <!-- android:permission="android.permission.BIND_JOB_SERVICE" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true" -->
+        <!-- android:process=":push" -->
+        <!-- tools:ignore="InnerclassSeparator" /> -->
+        <activity android:name=".View.Activity.SettingsActivity.AboutActivity" />
+        <activity android:name=".View.Activity.SettingsActivity.WebViewPage" />
+        <activity android:name=".View.Activity.CommunityActivity.ContactBook" />
+        <activity android:name=".View.Activity.UserActivity.Personal_data" />
+        <activity android:name=".View.Activity.CommunityActivity.Schedule" />
+        <activity android:name=".View.Activity.Training_course" />
+        <activity android:name=".View.Activity.Main2Activity" />
+        <activity android:name=".View.Activity.SettingsActivity.Setting" />
         <activity android:name=".View.SearchToolBar" />
         <activity android:name=".View.Home" />
         <activity android:name=".View.SignUp" />
@@ -22,7 +67,18 @@
         <activity android:name=".View.Activity.GuideActivity" />
         <activity android:name=".View.Login" />
         <activity android:name=".date.date" />
-        <activity android:name=".View.Activity.SplashActivity">
+        <activity
+            android:name=".util.Keepalive.PixelActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:finishOnTaskLaunch="false"
+            android:launchMode="singleInstance"
+            android:process=":live"
+            android:theme="@style/LiveActivityStyle" />
+        <activity
+            android:name=".View.Activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,6 +94,16 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+        <meta-data
+            android:name="com.taobao.android.hotfix.IDSECRET"
+            android:value="25977075" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="685fdd2f4cb9c48fd6a8f14726001161" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDQ7SpeDm8L5igUT/QjOPkYKHpZKX7PFaf+xjFqW1ja949oSn2Zxtq3mUPB5wimB95yleA4GOP6+ASwYQ/Ou8DEXR46/psurmpVXFgRBQz2i8lBeYcj3RPEddFjn9yTgbSb5ht343JVQVmd+Sk0jfeMDC0wpUqcDjI7JyGXLlLYNSpXbGzImYr3TJ91mgPhyxbEPlj9OK8LkJX2Vszape721c6CfHtMu4w0AV+/u3CoVr6BJeqz1+wD04jWFWG9qecy3crI5GJqwKrOYrNgwax0fayksn494Ljkch4JvwkljuC1jVyz+fOTkR/iN4iUfKkWHz0AQJ1Ga0+qmZJmyPHDAgMBAAECggEASOeJkjqtK1TMBZKE2cmmunRdhUGCm5auAax9T+TCU95xL25W99M5PToBN+d70BwM1qVQEaM14ryrPjUQhA5mTN9FjkaMNjTsrA7GOGIvzNSojO1wZ+ZcYIDQaVg+a0amlIQub55xpihgskxgwZMMn9Ub686yA1S82IFmKlAi3ojFI16+eNKx2l8On9jqENWTCR+BgTZ7fkrCIxuI2d2bhUZJiNomzHSlr5QTKkbrxpSVrv3jfe+vX3hWtAga3WR/YpBix65qhzo36ZeJJFmSiB03GOt5EuNeRuf8I/Ux8DE4NwVE9Q8ednU0dA8I8rITNaZEA/uSINoYEMydHlwFAQKBgQD1uErotfXSuMiRrzdVP9vfJ/xmbC2chwI2bsKYv+5gsyM/PV/H/f7+XwfGu5mjx/5oZSMIDGryjHyHK+7088lXK3Pk3lFpRLCz5yTn0CNocu9zTPbqqoozxna21itSZ1SE314RSyfjfDAnlrCC5r5GSeEPfL+0qX9fY088/idogQKBgQDZqs7K5z+8ntILNmkyuhK6Bq+ZS8jwuZ0iLPzs+NO6KH9tPPGhCwSTbS9jgQNzxrH0QSiMZL1pmL8fKxv+PYgTM6q4Rt43360Vp+ZN6VAhqnH3rRIkJ9uJ6pYpjkHliqpuMUQ3fcZ1t4mvJjNVlfppBl53MOrcRbGpnFjxZmyYQwKBgEgydhAaJrhbgtMLYH6z3K6c2RRfBKfRI11K/fJTsn7HI7wZFGN2xc2Hrok95c6xnJaf4MMkoufRT2WICxX961KpecvtZo4/mIvDhpx2E3FFFAYUvxgEM8cysP7XvrLfmX3RA5qhMn8sphl7tTFBCvcsDey3ArzacIpea5HIO1wBAoGAUFrwUJOiQf3XyO/jUijDNQ220b7ahZPgYHd/P/R0JWtB74/qG+u3Wr2aGv/LyHf3xhYv4/RkwJD1LYp6oRcSHxSZ18HB05qtiSscqHKTdHo57Jdl9RcJwxZpLRopVZYlaNyjNGEoXNjO6WwO02+0rAT/5ryWV48bEWR4qVWIjYUCgYA3alR1WXTeWUOm8UIl6aZVBLdF8uJXDX/gqgRzcyfNcBfNLdCRx4gsITPw1q/fcZTizrkI8Zqw/A5NpP4yYMmVMz7dVO3A9AxJ4PdxbBQGNCq9INn0FeH7fOjmLmjFuwE8SW9yNqyEQHGwxIFBEELWjDCV0cYdWVONGft6BNXjyg==" />
     </application>
 
 </manifest>

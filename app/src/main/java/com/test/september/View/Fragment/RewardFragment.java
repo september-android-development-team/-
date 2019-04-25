@@ -27,4 +27,9 @@ public class RewardFragment extends BaseFragment {
         super.initData();
         Log.e(TAG,"悬赏页面的Fragment的数据被初始化了");
     }
+
+    @Override
+    public void setViewListener() {
+
+    }
 }
